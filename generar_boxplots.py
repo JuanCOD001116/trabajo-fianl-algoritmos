@@ -1,12 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def boxplot_por_punto(df, variable, unidades):
+def boxplot_por_punto(df, variable, limite, unidades):
     """Genera gráfica de caja y bigote para visualizar la distribución de la variable por punto."""
 
 
     # Asignar unidades específicas
-    unidades_var = unidades.values[0]   # Unidad del LMP
+    unidades_var = unidades.values[0] if hasattr(unidades, 'values') else unidades   # Unidad del LMP
 
     if variable == "Caudal_Ls":
         unidades_var = "L/s"

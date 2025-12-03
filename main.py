@@ -108,11 +108,10 @@ df_merged = df_long.merge(
 # Identificar superaciones del LMP
 df_merged["Supera_LMP"] = df_merged["Valor"] > df_merged["LMP_max"]
 
-# Calcular porcentaje de exceso respecto al límite
-# Formula: ((Valor - LMP) / LMP) * 100
-# Si el valor es menor al LMP, el porcentaje será negativo (cumplimiento)
-# Si el valor es mayor al LMP, el porcentaje será positivo (exceso)
-df_merged["Porcentaje_Exceso"] = ((df_merged["Valor"] - df_merged["LMP_max"]) / df_merged["LMP_max"] * 100).round(2)
+# Calcular porcentaje de error (error relativo respecto al LMP)
+# Formula: |Valor - LMP| / LMP * 100
+# Representa la desviación porcentual absoluta respecto al límite
+df_merged["Porcentaje_Error"] = (abs(df_merged["Valor"] - df_merged["LMP_max"]) / df_merged["LMP_max"] * 100).round(2)
 
 # Exportar resultados a Excel
 with pd.ExcelWriter("analisis_calidad_agua.xlsx") as writer:
